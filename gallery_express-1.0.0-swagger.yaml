@@ -1,0 +1,96 @@
+openapi: 3.0.0
+
+
+info:
+  version: 1.0.0
+  title: "Express.js gallery API"
+
+paths:
+  
+  /:
+    get:
+      responses:
+        200:
+          description: "Returns authentication page"
+          content:
+    post:
+      summary: "Returns token"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                email:
+                  required: true
+                  type: string
+                  example: "example@gmail.com"
+                password:
+                  required: true
+                  type: string
+                  example: "randomPassword123"
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                properties:
+                  token:
+                    type: string
+                    example: "token"
+        401:
+          content:
+            application/json:
+              schema:
+                properties:
+                  errorMessage:
+                    type: string
+                    example: "Invalid email or password"
+
+  /gallery:
+    get:
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            required: true
+      responses:
+        200:
+         summary: "Returns a json file"
+         content:
+           application/json:
+              schema:
+                properties:
+                  objects:
+                   type: array
+                   example: ["first_link", "second_link", "third_link"]
+                  page:
+                    type: string
+                  total:
+                   type: integer
+      401:
+        summary: "Token is missing"
+        content:
+          application/json:
+            schema:
+              properties:
+                errorMessage:
+                  type: string
+                  example: "Unauthorized"
+
+  /upload:
+      parameters:
+        - in: query
+          name: page
+          scheme:
+            type: integer
+            required: true
+      post:
+        requestBody:
+          required: true
+          content:
+            multipart/form-data:
+        responses:
+          302:
+            summary: "Redirects to /gallery"

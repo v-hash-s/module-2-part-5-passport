@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <form method="post" action="/upload" enctype="multipart/form-data">
+        <input type="file" name="photo">
+        <input type="submit" value="Submit">
+        <input type="hidden" value="" id="pageNumInForm" name="pageNumInForm">
+        <input type="hidden" value="" id="limitNumInForm" name="limitNumInForm">
+        <!-- <input type="hidden" value="token" name="token"> -->
+    </form>
+    <p>Total number of pages: <span id="total"><%= ejsData.objects.total %></span></p>
+
+    <% if(ejsData.photo && ejsData.objects){ %>
+
+        <!-- <% ejsData.photo.forEach(function (photo) { %>
+            <img src='<%= photo %>' height='200' width='200' style="object-fit: cover"/>
+      <% }) %> -->
+
+       
+        <% ejsData.objects.objects.forEach(function (object) { %>
+               <img src='<%= object %>' height='200' width='200' style="object-fit: cover"/>
+         <% }) %>
+        <% }  else {%>
+
+            <% ejsData.objects.objects.forEach(function (object) { %>
+                <img src='<%= object %>' height='200' width='200' style="object-fit: cover"/>
+            <% }) %>
+            
+            <% } %>
+    </div>
+    <!-- <img src="../photos/first_page/anton-ivanov-L38IxgRzVcE-unsplash.jpg" alt=""> -->
+    <div id="buttons">
+        <button id="back"><</button>
+                <button id="next">></button>
+    </div>
+
+    <script src="./gallery.js"></script>
+</body>
+
+</html>
