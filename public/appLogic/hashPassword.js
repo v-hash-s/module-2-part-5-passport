@@ -44,7 +44,7 @@ function hashPassword(password) {
             switch (_a.label) {
                 case 0:
                     console.log("Pasword in function: ", password);
-                    saltRounds = 10;
+                    saltRounds = 5;
                     return [4 /*yield*/, getSalt(saltRounds)];
                 case 1:
                     salt = _a.sent();

@@ -38,6 +38,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.sendToken = exports.isValidUser = exports.token = void 0;
 var UserSchema_1 = require("../database/models/UserSchema");
+var bcrypt = require("bcrypt");
 exports.token = {
     'token': 'token',
 };
@@ -48,7 +49,9 @@ function isValidUser(req) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, UserSchema_1.default.findOne({ email: req.body.email }, { email: 1, password: 1 }).then(function (data) {
                         if (data) {
-                            if (data.email === req.body.email && data.password === req.body.password) {
+                            var isValidPassword = bcrypt.compareSync(req.body.password, data.password);
+                            console.log("Is valid password: ", isValidPassword);
+                            if (data.email === req.body.email && isValidPassword) {
                                 return true;
                             }
                             else {
