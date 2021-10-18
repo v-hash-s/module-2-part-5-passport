@@ -30,9 +30,11 @@ app.use(cookieParser());
 var loginRouter_1 = require("./routes/loginRouter");
 var galleryRouter_1 = require("./routes/galleryRouter");
 var uploadRouter_1 = require("./routes/uploadRouter");
+var signupRouter_1 = require("./routes/signupRouter");
 app.use('/', loginRouter_1.default);
 app.use('/gallery', galleryRouter_1.default);
 app.use('/upload', uploadRouter_1.default);
+app.use('/signup', signupRouter_1.default);
 app.all('*', function (req, res) {
     res.status(404).end("Page " + req.url + " not found");
 });

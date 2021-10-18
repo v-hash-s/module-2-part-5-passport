@@ -74,9 +74,7 @@ function getPagesNumber(req) {
             switch (_a.label) {
                 case 0:
                     limit = Number(req.query.limit);
-                    return [4 /*yield*/, ImageSchema_1.default.count()
-                        // const finalResult = await (Math.ceil(counts / limit))
-                    ];
+                    return [4 /*yield*/, ImageSchema_1.default.count()];
                 case 1:
                     counts = _a.sent();
                     finalResult = Math.ceil(counts / limit);

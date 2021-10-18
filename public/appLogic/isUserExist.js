@@ -36,42 +36,30 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.token = void 0;
-var express = require("express");
-var app = express();
-var path = require("path");
-var router = express.Router();
-var login_1 = require("../appLogic/login");
-exports.token = {
-    'token': 'token',
-};
-router.options('/', function (req, res) {
-    res.header('Application-Type', 'multipart/form-data');
-    res.send();
-});
-router.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname, '../../static/pages/index.html'));
-});
-router.post('/', function (req, res) {
+exports.isUserExist = void 0;
+var UserSchema_1 = require("../database/models/UserSchema");
+function isUserExist(req) {
     return __awaiter(this, void 0, void 0, function () {
-        var isValid;
+        var data;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, (login_1.isValidUser(req))];
+                case 0: return [4 /*yield*/, UserSchema_1.default.findOne({ email: req.body.email }, { email: 1, password: 1 }).then(function (data) {
+                        if (data) {
+                            if (data.email === req.body.email && data.password === req.body.password) {
+                                return true;
+                            }
+                            else {
+                                return false;
+                            }
+                        }
+                    })];
                 case 1:
-                    isValid = _a.sent();
-                    if (isValid) {
-                        res.status(200);
-                        res.cookie('token', 'token');
-                        res.send(login_1.sendToken());
-                    }
-                    else {
-                        res.status(401);
-                        res.send({ errorMessage: 'Invalid email or password' });
-                    }
-                    return [2 /*return*/];
+                    data = _a.sent();
+                    console.log(data);
+                    return [2 /*return*/, data];
             }
         });
     });
-});
-exports.default = router;
+}
+exports.isUserExist = isUserExist;
+exports.default = isUserExist;

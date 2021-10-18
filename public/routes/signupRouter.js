@@ -36,38 +36,25 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.token = void 0;
 var express = require("express");
 var app = express();
 var path = require("path");
 var router = express.Router();
-var login_1 = require("../appLogic/login");
-exports.token = {
-    'token': 'token',
-};
-router.options('/', function (req, res) {
-    res.header('Application-Type', 'multipart/form-data');
-    res.send();
-});
+var isUserExist_1 = require("../appLogic/isUserExist");
 router.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname, '../../static/pages/index.html'));
+    res.sendFile(path.join(__dirname, '../../static/pages/signup.html'));
 });
 router.post('/', function (req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var isValid;
+        var isExist;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, (login_1.isValidUser(req))];
+                case 0: return [4 /*yield*/, (isUserExist_1.isUserExist(req))];
                 case 1:
-                    isValid = _a.sent();
-                    if (isValid) {
+                    isExist = _a.sent();
+                    if (isExist) {
                         res.status(200);
-                        res.cookie('token', 'token');
-                        res.send(login_1.sendToken());
-                    }
-                    else {
-                        res.status(401);
-                        res.send({ errorMessage: 'Invalid email or password' });
+                        res.send(JSON.stringify('User already exists'));
                     }
                     return [2 /*return*/];
             }

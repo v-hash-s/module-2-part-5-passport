@@ -44,11 +44,12 @@ app.use(cookieParser())
 import loginRouter from './routes/loginRouter'
 import galleryRouter from './routes/galleryRouter'
 import uploadRouter from './routes/uploadRouter'
-
+import signupRouter from './routes/signupRouter'
 
 app.use('/', loginRouter)
 app.use('/gallery', galleryRouter)
 app.use('/upload', uploadRouter)
+app.use('/signup', signupRouter)
 
 app.all('*', (req: Request, res: Response) => {
   res.status(404).end(`Page ${req.url} not found`);
