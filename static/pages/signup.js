@@ -1,7 +1,7 @@
 "use strict";
 const url = 'http://localhost:8080/signup';
 const form = document.getElementById('signup');
-const regex = /^\b([0-9A-Z])+\b$/gi;
+const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z\d]{8}$/;
 class User {
     constructor(email, password) {
         this.email = email;
