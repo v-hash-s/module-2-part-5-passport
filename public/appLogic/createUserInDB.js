@@ -36,35 +36,31 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var express = require("express");
-var app = express();
-var path = require("path");
-var router = express.Router();
-var isUserExist_1 = require("../appLogic/isUserExist");
-var createUserInDB_1 = require("../appLogic/createUserInDB");
-router.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname, '../../static/pages/signup.html'));
-});
-router.post('/', function (req, res) {
+exports.createUser = void 0;
+var UserSchema_1 = require("../database/models/UserSchema");
+var hashPassword_1 = require("../appLogic/hashPassword");
+function createUser(req) {
     return __awaiter(this, void 0, void 0, function () {
-        var isExist;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, (isUserExist_1.isUserExist(req))];
+        var user, _a;
+        var _b;
+        return __generator(this, function (_c) {
+            switch (_c.label) {
+                case 0:
+                    _a = UserSchema_1.default.bind;
+                    _b = {
+                        email: req.body.email
+                    };
+                    return [4 /*yield*/, hashPassword_1.default(req.body.password)];
                 case 1:
-                    isExist = _a.sent();
-                    if (!isExist) return [3 /*break*/, 2];
-                    res.status(200);
-                    res.send(JSON.stringify('User already exists'));
-                    return [3 /*break*/, 4];
-                case 2: return [4 /*yield*/, createUserInDB_1.createUser(req).then(function () { return console.log('User is created'); })];
-                case 3:
-                    _a.sent();
-                    res.send(JSON.stringify('User is created'));
-                    _a.label = 4;
-                case 4: return [2 /*return*/];
+                    user = new (_a.apply(UserSchema_1.default, [void 0, (_b.password = _c.sent(),
+                            _b)]))();
+                    console.log(user);
+                    return [4 /*yield*/, user.save().then(function (result) { return console.log(result); })];
+                case 2:
+                    _c.sent();
+                    return [2 /*return*/];
             }
         });
     });
-});
-exports.default = router;
+}
+exports.createUser = createUser;

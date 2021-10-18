@@ -36,35 +36,39 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var express = require("express");
-var app = express();
-var path = require("path");
-var router = express.Router();
-var isUserExist_1 = require("../appLogic/isUserExist");
-var createUserInDB_1 = require("../appLogic/createUserInDB");
-router.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname, '../../static/pages/signup.html'));
-});
-router.post('/', function (req, res) {
+var bcrypt = require("bcrypt");
+function hashPassword(password) {
     return __awaiter(this, void 0, void 0, function () {
-        var isExist;
+        var saltRounds, salt, hashedPassword;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, (isUserExist_1.isUserExist(req))];
+                case 0:
+                    console.log("Pasword in function: ", password);
+                    saltRounds = 10;
+                    return [4 /*yield*/, getSalt(saltRounds)];
                 case 1:
-                    isExist = _a.sent();
-                    if (!isExist) return [3 /*break*/, 2];
-                    res.status(200);
-                    res.send(JSON.stringify('User already exists'));
-                    return [3 /*break*/, 4];
-                case 2: return [4 /*yield*/, createUserInDB_1.createUser(req).then(function () { return console.log('User is created'); })];
-                case 3:
-                    _a.sent();
-                    res.send(JSON.stringify('User is created'));
-                    _a.label = 4;
-                case 4: return [2 /*return*/];
+                    salt = _a.sent();
+                    return [4 /*yield*/, bcrypt.hash(password, salt)];
+                case 2:
+                    hashedPassword = _a.sent();
+                    console.log("hashed password: ", hashedPassword);
+                    return [2 /*return*/, hashedPassword];
             }
         });
     });
-});
-exports.default = router;
+}
+function getSalt(saltRounds) {
+    return __awaiter(this, void 0, void 0, function () {
+        var salt;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, bcrypt.genSalt(saltRounds)];
+                case 1:
+                    salt = _a.sent();
+                    console.log('Salt: ', salt);
+                    return [2 /*return*/, salt];
+            }
+        });
+    });
+}
+exports.default = hashPassword;
