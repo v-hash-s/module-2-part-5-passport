@@ -2,6 +2,7 @@ import { Token } from '../interfaces'
 import UserModel from '../database/models/UserSchema'
 import hashPassword from '../appLogic/hashPassword'
 import * as bcrypt from 'bcrypt'
+
 export const token: Token = {
     'token': 'token',
 }

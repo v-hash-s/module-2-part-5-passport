@@ -12,6 +12,29 @@ import * as formidableMiddleware from 'express-formidable'
 import * as cors from 'cors'
 import * as cookieParser from 'cookie-parser'
 
+// // PASSPORT
+
+
+// import * as passport from 'passport'
+// const LocalStrategy = require('passport-local').Strategy;
+// import UserModel from './database/models/UserSchema';
+// import * as session from 'express-session'
+
+// app.use(session({
+//     secret: process.env.SESSION_SECRET!,
+//     saveUninitialized: false,
+//     resave: false
+//   }));
+  
+// app.use(passport.initialize());
+// app.use(passport.session());
+
+// passport.use(new LocalStrategy(User.authenticate()));
+// passport.serializeUser(User.serializeUser());
+// passport.deserializeUser(User.deserializeUser());
+
+// // PASSPORT
+
 
 db()
   .then(() => console.log('Database connection established'))
