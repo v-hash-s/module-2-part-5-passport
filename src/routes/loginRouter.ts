@@ -90,8 +90,10 @@ router.get('/', function(req: Request, res: Response){
 //  });
 
 
-router.post('/login', passport.authenticate('local'), (req, res) => {
+// router.post('/login', passport.authenticate('local'), (req, res) => {
     
-  });
+//   });
+
+router.post('/', passport.authenticate('local', { failureRedirect: '/', successRedirect: '/gallery' }));
 
 export default router

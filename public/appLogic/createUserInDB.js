@@ -50,7 +50,7 @@ function createUser(req) {
                     _b = {
                         email: req.body.email
                     };
-                    return [4 /*yield*/, hashPassword_1.default(req.body.password)];
+                    return [4 /*yield*/, (0, hashPassword_1.default)(req.body.password)];
                 case 1:
                     user = new (_a.apply(UserSchema_1.default, [void 0, (_b.password = _c.sent(),
                             _b)]))();

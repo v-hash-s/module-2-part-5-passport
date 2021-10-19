@@ -61,7 +61,7 @@ router.get('/', function (req, res) {
                         res.redirect("/gallery?page=1&limit=10");
                         return [2 /*return*/];
                     }
-                    return [4 /*yield*/, gallery_1.sendGalleryObject(req)];
+                    return [4 /*yield*/, (0, gallery_1.sendGalleryObject)(req)];
                 case 1:
                     objects = _a.sent();
                     ejsData = { objects: objects };

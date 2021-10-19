@@ -53,8 +53,8 @@ function getData(images) {
                 case 1:
                     asyncImages = _a.sent();
                     _loop_1 = function (img) {
-                        return __generator(this, function (_a) {
-                            switch (_a.label) {
+                        return __generator(this, function (_b) {
+                            switch (_b.label) {
                                 case 0: return [4 /*yield*/, new Promise(function (resolve, reject) {
                                         fs.stat(path.resolve(path.join(__dirname, "../../static/photos/" + img)), function (err, data) {
                                             if (err) {
@@ -66,7 +66,7 @@ function getData(images) {
                                         });
                                     })];
                                 case 1:
-                                    _a.sent();
+                                    _b.sent();
                                     return [2 /*return*/];
                             }
                         });

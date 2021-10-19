@@ -9,7 +9,25 @@ var connectToMongoDB_1 = require("./database/connectToMongoDB");
 var formidableMiddleware = require("express-formidable");
 var cors = require("cors");
 var cookieParser = require("cookie-parser");
-connectToMongoDB_1.default()
+// // PASSPORT
+var passport = require("passport");
+app.use(passport.initialize());
+// import * as passport from 'passport'
+// const LocalStrategy = require('passport-local').Strategy;
+// import UserModel from './database/models/UserSchema';
+// import * as session from 'express-session'
+// app.use(session({
+//     secret: process.env.SESSION_SECRET!,
+//     saveUninitialized: false,
+//     resave: false
+//   }));
+// app.use(passport.initialize());
+// app.use(passport.session());
+// passport.use(new LocalStrategy(User.authenticate()));
+// passport.serializeUser(User.serializeUser());
+// passport.deserializeUser(User.deserializeUser());
+// // PASSPORT
+(0, connectToMongoDB_1.default)()
     .then(function () { return console.log('Database connection established'); })
     .then(function () { return app.listen(process.env.PORT, function () { return console.log("At port " + process.env.PORT); }); })
     .catch(function (err) { return console.log(err.message); });

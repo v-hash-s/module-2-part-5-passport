@@ -48,7 +48,7 @@ router.post('/', function (req, res) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, upload_1.uploadImg(req, res)];
+                case 0: return [4 /*yield*/, (0, upload_1.uploadImg)(req, res)];
                 case 1:
                     _a.sent();
                     res.status(302);

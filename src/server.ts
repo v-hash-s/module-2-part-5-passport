@@ -13,8 +13,8 @@ import * as cors from 'cors'
 import * as cookieParser from 'cookie-parser'
 
 // // PASSPORT
-
-
+import * as passport from 'passport'
+app.use(passport.initialize());
 // import * as passport from 'passport'
 // const LocalStrategy = require('passport-local').Strategy;
 // import UserModel from './database/models/UserSchema';
