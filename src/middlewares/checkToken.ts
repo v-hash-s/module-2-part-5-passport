@@ -2,13 +2,13 @@ import * as jwt from "jsonwebtoken";
 import * as cookieParser from 'cookie-parser'
 
 
-function extractUserFromToken(req: any) {
+export function extractUserFromToken(req: any) {
 
     if(process.env.TOKEN_KEY && req.cookies.token) {
 
-        let token =  req.cookies.token.split('.')[1]
-        let user = jwt.decode(token);
-        console.log(user)
+        let token =  req.cookies.token.split(' ')[1]
+        let user = jwt.verify(token, process.env.TOKEN_KEY);
+        console.log("USER: ",user)
         return user;
 
     }
@@ -47,4 +47,4 @@ function verifyToken(req: any, res: any, next: Function) {
 }
 
 module.exports = verifyToken;
-export { extractUserFromToken }
+// export { extractUserFromToken };

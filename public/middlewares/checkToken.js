@@ -4,9 +4,9 @@ exports.extractUserFromToken = void 0;
 var jwt = require("jsonwebtoken");
 function extractUserFromToken(req) {
     if (process.env.TOKEN_KEY && req.cookies.token) {
-        var token = req.cookies.token.split('.')[1];
-        var user = jwt.decode(token);
-        console.log(user);
+        var token = req.cookies.token.split(' ')[1];
+        var user = jwt.verify(token, process.env.TOKEN_KEY);
+        console.log("USER: ", user);
         return user;
     }
     else
@@ -33,3 +33,4 @@ function verifyToken(req, res, next) {
         throw new Error('TOKEN_KEY not found');
 }
 module.exports = verifyToken;
+// export { extractUserFromToken };
