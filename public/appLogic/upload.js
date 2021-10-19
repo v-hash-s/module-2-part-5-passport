@@ -61,10 +61,11 @@ function uploadImg(req, res) {
                     img = req.files.photo.name;
                     stats = fs.statSync(path.join(__dirname, "../../static/photos/" + img));
                     user = (0, checkToken_1.extractUserFromToken)(req);
+                    console.log("USER WHEN UPLOADS: ", user);
                     image = new ImageSchema_1.default({
                         path: img,
                         metadata: stats,
-                        owner: user.name
+                        // owner: user.email
                     });
                     return [4 /*yield*/, image.save().then(function (result) { return console.log(result); })];
                 case 3:

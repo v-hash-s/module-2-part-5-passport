@@ -3,9 +3,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.extractUserFromToken = void 0;
 var jwt = require("jsonwebtoken");
 function extractUserFromToken(req) {
-    if (process.env.TOKEN_KEY && req.cookies) {
-        var token = req.cookies.token;
-        var user = jwt.verify(token, process.env.TOKEN_KEY);
+    if (process.env.TOKEN_KEY && req.cookies.token) {
+        var token = req.cookies.token.split('.')[1];
+        var user = jwt.decode(token);
+        console.log(user);
         return user;
     }
     else

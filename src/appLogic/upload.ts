@@ -17,10 +17,11 @@ export async function uploadImg(req: any, res: any) {
             const img = req.files.photo.name
             const stats = fs.statSync(path.join(__dirname, `../../static/photos/${img}`))
             const user = extractUserFromToken(req); // IMPORT THIS
+            console.log("USER WHEN UPLOADS: ", user)
             const image = new ImageModel({
                 path: img,
                 metadata: stats,
-                owner: user.name
+                // owner: user.email
             })
             await image.save().then((result: any) => console.log(result))
         }

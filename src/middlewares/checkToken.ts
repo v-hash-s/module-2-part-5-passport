@@ -4,10 +4,11 @@ import * as cookieParser from 'cookie-parser'
 
 function extractUserFromToken(req: any) {
 
-    if(process.env.TOKEN_KEY && req.cookies) {
+    if(process.env.TOKEN_KEY && req.cookies.token) {
 
-        let token =  req.cookies.token
-        let user = jwt.verify(token, process.env.TOKEN_KEY);
+        let token =  req.cookies.token.split('.')[1]
+        let user = jwt.decode(token);
+        console.log(user)
         return user;
 
     }
