@@ -1,11 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.token = void 0;
 var express = require("express");
 var app = express();
 var path = require("path");
 var router = express.Router();
 var UserSchema_1 = require("../database/models/UserSchema");
+// JWT
+var jwt = require('jsonwebtoken');
+// JWT
 // PASSPORT
 var bcrypt = require("bcrypt");
 var passport = require('passport');
@@ -46,9 +48,9 @@ passport.deserializeUser(function (userId, done) {
 });
 // To use with sessions
 // PASSPORT
-exports.token = {
-    'token': 'token',
-};
+// export const token: Token = {
+//     'token': 'token',
+// }
 router.options('/', function (req, res) {
     res.header('Application-Type', 'multipart/form-data');
     res.send();
@@ -67,7 +69,26 @@ router.get('/', function (req, res) {
 //         res.send({ errorMessage: 'Invalid email or password'});
 //     }
 //  });
-// router.post('/login', passport.authenticate('local'), (req, res) => {
-//   });
 router.post('/', passport.authenticate('local', { failureRedirect: '/', successRedirect: '/gallery' }));
+// router.post('/', function(req: any, res: any){
+//     passport.authenticate('local', {session: false}, (err: any, user: any, info: any) => {
+//         console.log("USER: ", user)
+//         if (err || !user) {
+//             return res.status(400).json({
+//                 message: 'Something is not right',
+//                 user   : user
+//             });
+//         }
+//        req.login(user, {session: false}, (err: any) => {
+//            if (err) {
+//                res.send(err);
+//            }
+//            // generate a signed son web token with the contents of user object and return it in the response
+//            const token = jwt.sign(user, process.env.JWT_SECRET);
+//            console.log("TOKEN: ",token)
+//            console.log("AGAIN USER: ", user)
+//            res.json({user, token});
+//         })
+//     })(req, res);;
+// })
 exports.default = router;

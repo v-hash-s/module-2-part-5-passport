@@ -47,17 +47,17 @@ form.addEventListener('submit', async (event) => {
             body: JSON.stringify(user)
         });
         
-        let result = await response.json();
-        if (result.errorMessage)
-            return alert(result.errorMessage);
-        localStorage.setItem('token', result.token);
-        if (localStorage.getItem('token')) {
+        // let result = await response.json();
+        // if (result.errorMessage)
+        //     return alert(result.errorMessage);
+        // localStorage.setItem('token', result.token);
+        // if (localStorage.getItem('token')) {
             let time = new Date();
             localStorage.setItem('time', String(time.getUTCMinutes()));
             // document.location.replace('/gallery');
             document.location.replace('/gallery');
 
-        }
+        // }
     }
     catch (err) {
         alert(err.message);

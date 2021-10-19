@@ -8,6 +8,14 @@ import { Token, ErrorMessage } from "../interfaces"
 const router = express.Router();
 import { isValidUser, sendToken } from '../appLogic/login'
 import UserModel from "../database/models/UserSchema"
+
+
+// JWT
+
+const jwt = require('jsonwebtoken');
+
+// JWT
+
 // PASSPORT
 import * as bcrypt from 'bcrypt'
 
@@ -60,9 +68,9 @@ passport.deserializeUser((userId: any, done: any) => {
 // PASSPORT
 
 
-export const token: Token = {
-    'token': 'token',
-}
+// export const token: Token = {
+//     'token': 'token',
+// }
 
 router.options('/', (req: Request, res: Response) => {
 
@@ -90,10 +98,30 @@ router.get('/', function(req: Request, res: Response){
 //  });
 
 
-// router.post('/login', passport.authenticate('local'), (req, res) => {
-    
-//   });
 
-router.post('/', passport.authenticate('local', { failureRedirect: '/', successRedirect: '/gallery' }));
+
+router.post('/', passport.authenticate('local', { failureRedirect: '/', successRedirect: '/gallery' }))
+
+// router.post('/', function(req: any, res: any){
+//     passport.authenticate('local', {session: false}, (err: any, user: any, info: any) => {
+//         console.log("USER: ", user)
+//         if (err || !user) {
+//             return res.status(400).json({
+//                 message: 'Something is not right',
+//                 user   : user
+//             });
+//         }
+//        req.login(user, {session: false}, (err: any) => {
+//            if (err) {
+//                res.send(err);
+//            }
+//            // generate a signed son web token with the contents of user object and return it in the response
+//            const token = jwt.sign(user, process.env.JWT_SECRET);
+//            console.log("TOKEN: ",token)
+//            console.log("AGAIN USER: ", user)
+//            res.json({user, token});
+//         })
+//     })(req, res);;
+// })
 
 export default router
