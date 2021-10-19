@@ -69,7 +69,24 @@ router.get('/', function (req, res) {
 //         res.send({ errorMessage: 'Invalid email or password'});
 //     }
 //  });
-router.post('/', passport.authenticate('local', { failureRedirect: '/', successRedirect: '/gallery' }));
+// router.post('/', passport.authenticate('local', { failureRedirect: '/', successRedirect: '/gallery' }))
+router.post('/', function (req, res, next) {
+    passport.authenticate('local', function (err, user, info) {
+        if (err) {
+            return next(err);
+        }
+        if (!user) {
+            return res.redirect('/');
+        }
+        req.logIn(user, function (err) {
+            if (err) {
+                return next(err);
+            }
+            res.cookie('token', 'token');
+            return res.redirect('/gallery');
+        });
+    })(req, res, next);
+});
 // router.post('/', function(req: any, res: any){
 //     passport.authenticate('local', {session: false}, (err: any, user: any, info: any) => {
 //         console.log("USER: ", user)

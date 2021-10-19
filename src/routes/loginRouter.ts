@@ -100,7 +100,19 @@ router.get('/', function(req: Request, res: Response){
 
 
 
-router.post('/', passport.authenticate('local', { failureRedirect: '/', successRedirect: '/gallery' }))
+// router.post('/', passport.authenticate('local', { failureRedirect: '/', successRedirect: '/gallery' }))
+
+router.post('/', function(req, res, next) {
+  passport.authenticate('local', function(err: any, user: any, info: any) {
+    if (err) { return next(err); }
+    if (!user) { return res.redirect('/'); }
+    req.logIn(user, function(err: any) {
+      if (err) { return next(err); }
+      res.cookie('token', 'token')
+      return res.redirect('/gallery');
+    });
+  })(req, res, next);
+});
 
 // router.post('/', function(req: any, res: any){
 //     passport.authenticate('local', {session: false}, (err: any, user: any, info: any) => {
