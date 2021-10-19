@@ -34,6 +34,7 @@ app.use(passport.initialize());
 // passport.deserializeUser(User.deserializeUser());
 
 // // PASSPORT
+// import { verifyToken, extractUserFromToken } from './middlewares/checkToken'
 
 
 db()

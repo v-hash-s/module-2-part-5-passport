@@ -40,9 +40,10 @@ exports.uploadImg = void 0;
 var fs = require("fs");
 var path = require("path");
 var ImageSchema_1 = require("../database/models/ImageSchema");
+var checkToken_1 = require("../middlewares/checkToken");
 function uploadImg(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var isPresent, img, stats, image;
+        var isPresent, img, stats, user, image;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -59,9 +60,11 @@ function uploadImg(req, res) {
                     fs.renameSync(req.files.photo.path, path.join(__dirname, "../../static/photos/", req.files.photo.name));
                     img = req.files.photo.name;
                     stats = fs.statSync(path.join(__dirname, "../../static/photos/" + img));
+                    user = (0, checkToken_1.extractUserFromToken)(req);
                     image = new ImageSchema_1.default({
                         path: img,
-                        metadata: stats
+                        metadata: stats,
+                        owner: user.name
                     });
                     return [4 /*yield*/, image.save().then(function (result) { return console.log(result); })];
                 case 3:

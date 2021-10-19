@@ -2,13 +2,14 @@ import { Request, Response } from "express"
 import * as express from 'express'
 const app = express()
 import * as path from 'path'
-
+import * as cookieParser from 'cookie-parser'
 
 import { Token, ErrorMessage } from "../interfaces"
 const router = express.Router();
-import { isValidUser, sendToken } from '../appLogic/login'
+import { isValidUser } from '../appLogic/login'
 import UserModel from "../database/models/UserSchema"
 
+import sendToken from '../appLogic/sendToken'
 
 // JWT
 
@@ -102,13 +103,17 @@ router.get('/', function(req: Request, res: Response){
 
 // router.post('/', passport.authenticate('local', { failureRedirect: '/', successRedirect: '/gallery' }))
 
-router.post('/', function(req, res, next) {
+router.post('/', async function(req, res, next) {
   passport.authenticate('local', function(err: any, user: any, info: any) {
+      console.log(user)
     if (err) { return next(err); }
     if (!user) { return res.redirect('/'); }
-    req.logIn(user, function(err: any) {
+    req.logIn(user, async function(err: any) {
       if (err) { return next(err); }
-      res.cookie('token', 'token')
+      const userEmail = req.body.email
+      const accessToken = await sendToken(userEmail)
+      console.log("IN POST: ", accessToken)
+      res.cookie('token', accessToken)
       return res.redirect('/gallery');
     });
   })(req, res, next);

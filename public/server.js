@@ -27,6 +27,7 @@ app.use(passport.initialize());
 // passport.serializeUser(User.serializeUser());
 // passport.deserializeUser(User.deserializeUser());
 // // PASSPORT
+// import { verifyToken, extractUserFromToken } from './middlewares/checkToken'
 (0, connectToMongoDB_1.default)()
     .then(function () { return console.log('Database connection established'); })
     .then(function () { return app.listen(process.env.PORT, function () { return console.log("At port " + process.env.PORT); }); })

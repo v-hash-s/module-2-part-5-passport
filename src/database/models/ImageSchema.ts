@@ -3,8 +3,8 @@ const Schema = mongoose.Schema
 
 const imageSchema = new Schema({
     path: String,
-    metadata: Object
-
+    metadata: Object,
+    owner: String,
 })
 
 const ImageModel = mongoose.model('images', imageSchema)

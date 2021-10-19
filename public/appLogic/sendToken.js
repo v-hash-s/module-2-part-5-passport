@@ -36,40 +36,26 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var router = express.Router();
-var app = express();
-var gallery_1 = require("../appLogic/gallery");
-app.set("view engine", "ejs");
-app.use(cookieParser());
-// router.use(require('../middlewares/auth'));
-router.use(require('../middlewares/checkToken'));
-router.options('/', function (req, res) {
-    res.header('Application-Type', 'multipart/form-data');
-    res.send();
-});
-router.get('/', function (req, res) {
+// require("dotenv").config({path: '../../.env'});
+var jwt = require("jsonwebtoken");
+var UserSchema_1 = require("../database/models/UserSchema");
+function sendToken(email) {
     return __awaiter(this, void 0, void 0, function () {
-        var pageNumber, limit, objects, ejsData;
+        var token;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0:
-                    pageNumber = req.query.page;
-                    limit = req.query.limit;
-                    if (pageNumber == null || limit == null) {
-                        res.redirect("/gallery?page=1&limit=10");
-                        return [2 /*return*/];
-                    }
-                    return [4 /*yield*/, (0, gallery_1.sendGalleryObject)(req)];
+                case 0: return [4 /*yield*/, UserSchema_1.default.findOne({ email: email }).then(function (user) {
+                        console.log("EMAIL FROM MONGO: ", user.email);
+                        var userEmail = { email: user.email };
+                        var accessToken = jwt.sign(userEmail, process.env.TOKEN_KEY, { expiresIn: 600000 });
+                        return accessToken;
+                    })];
                 case 1:
-                    objects = _a.sent();
-                    ejsData = { objects: objects };
-                    res.render((path.join(__dirname, '../../static/pages/gallery.ejs')), { ejsData: ejsData });
-                    return [2 /*return*/];
+                    token = _a.sent();
+                    console.log("IN FUNCTION: ", token);
+                    return [2 /*return*/, token];
             }
         });
     });
-});
-exports.default = router;
+}
+exports.default = sendToken;

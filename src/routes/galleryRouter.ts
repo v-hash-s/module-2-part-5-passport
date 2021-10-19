@@ -9,8 +9,8 @@ const app = express()
 import { sendGalleryObject } from "../appLogic/gallery";
 app.set("view engine", "ejs");
 app.use(cookieParser())
-router.use(require('../middlewares/auth'));
-
+// router.use(require('../middlewares/auth'));
+router.use(require('../middlewares/checkToken'))
 
 router.options('/', (req: Request, res: Response) => {
 

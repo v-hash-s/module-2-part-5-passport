@@ -4,7 +4,8 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 var imageSchema = new Schema({
     path: String,
-    metadata: Object
+    metadata: Object,
+    owner: String,
 });
 var ImageModel = mongoose.model('images', imageSchema);
 exports.default = ImageModel;

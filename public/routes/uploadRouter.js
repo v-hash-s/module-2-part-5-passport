@@ -39,7 +39,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var upload_1 = require("../appLogic/upload");
 var express = require("express");
 var router = express.Router();
-router.use(require('../middlewares/auth'));
+// router.use(require('../middlewares/auth'));
+router.use(require('../middlewares/checkToken'));
 router.options('/', function (req, res) {
     res.header('Application-Type', 'multipart/form-data');
     res.send();
