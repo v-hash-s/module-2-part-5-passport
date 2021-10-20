@@ -36,54 +36,27 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var router = express.Router();
-var app = express();
-var gallery_1 = require("../appLogic/gallery");
-var onlyUsersImages_1 = require("../appLogic/onlyUsersImages");
-var getToken_1 = require("../appLogic/getToken");
-app.set("view engine", "ejs");
-app.use(cookieParser());
-// router.use(require('../middlewares/auth'));
-router.use(require('../middlewares/checkToken'));
-router.options('/', function (req, res) {
-    res.header('Application-Type', 'multipart/form-data');
-    res.send();
-});
-router.get('/', function (req, res) {
+exports.sendUsersImages = void 0;
+var ImageSchema_1 = require("../database/models/ImageSchema");
+function sendUsersImages(email) {
     return __awaiter(this, void 0, void 0, function () {
-        var email, objects, ejsData, pageNumber, limit, objects, ejsData;
+        var objects, images, galleryResponse;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0:
-                    // const filter = false;
-                    console.log(req.query.filter);
-                    if (!req.query.filter) return [3 /*break*/, 2];
-                    email = (0, getToken_1.extractToken)(req);
-                    return [4 /*yield*/, (0, onlyUsersImages_1.sendUsersImages)(email)];
+                case 0: return [4 /*yield*/, ImageSchema_1.default.find({ owner: email }, { path: 1, _id: 0 }).exec()];
                 case 1:
                     objects = _a.sent();
-                    ejsData = { objects: objects };
-                    res.render((path.join(__dirname, '../../static/pages/gallery.ejs')), { ejsData: ejsData });
-                    return [3 /*break*/, 4];
-                case 2:
-                    pageNumber = req.query.page;
-                    limit = req.query.limit;
-                    if (pageNumber == null || limit == null) {
-                        res.redirect("/gallery?page=1&limit=10");
-                        return [2 /*return*/];
-                    }
-                    return [4 /*yield*/, (0, gallery_1.sendGalleryObject)(req)];
-                case 3:
-                    objects = _a.sent();
-                    ejsData = { objects: objects };
-                    res.render((path.join(__dirname, '../../static/pages/gallery.ejs')), { ejsData: ejsData });
-                    _a.label = 4;
-                case 4: return [2 /*return*/];
+                    console.log(objects);
+                    images = objects.map(function (img) {
+                        return img.path;
+                    });
+                    console.log(images);
+                    galleryResponse = {
+                        objects: images
+                    };
+                    return [2 /*return*/, galleryResponse];
             }
         });
     });
-});
-exports.default = router;
+}
+exports.sendUsersImages = sendUsersImages;
