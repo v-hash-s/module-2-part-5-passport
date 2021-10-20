@@ -209,9 +209,46 @@ User attempts to log in, if his data is correct, the server sends him object, co
 
 ### API
 
-Renders html page with login form
+Returns html page with login form
 
 ```
 GET '/'
+```
+
+Accepts email and password and returns a JWT token if those are valid
+
+```
+POST '/'
+```
+
+Returns html page with signup form
+
+```
+GET '/signup'
+```
+
+Accepts email and password and create user in mongoDB
+
+```
+POST '/'
+```
+Returns a specified gallery page with a specified or default limit of images per page
+
+```
+GET '/gallery?page=[number]&limit=[number]': 
+
+```
+
+Returns all images the specific user has uploaded
+
+```
+GET '/gallery?filter=true': 
+
+```
+
+Upload image to mongoDB
+
+```
+POST '/upload': 
 
 ```
