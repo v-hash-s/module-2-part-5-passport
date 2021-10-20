@@ -5,15 +5,13 @@ const params = Object.fromEntries(urlSearchParams.entries());
 let total = Number(document.getElementById('total').innerText);
 console.log(total)
 
-// console.log(typeof(params.limit))
-// let limit = location.search()
-// console.log(limit)
 const pageSearch = /\?page=\d+&limit=\d+/g;
 let limit;
 let pageNumber;
-
+let filter;
 if(params.filter){
-    return
+    filter = params.filter
+    console.log(filter)
 }
 else if(params.limit !== undefined){
     limit = params.limit
@@ -30,42 +28,22 @@ if (location.search.match(pageSearch)) {
 else if (localStorage.getItem('page')) {
     pageNumber = localStorage.getItem('page');
     updateLocation();
-}
+} else if(limit)(
+    updateLocation()
+)
 else {
     pageNumber = 1;
     localStorage.setItem('page', pageNumber);
     updateLocation();
 }
 
-//createGalleryPage(pageNumber);
-//const gallery = document.getElementById('gallery');
+
 const btnBack = document.getElementById('back');
 const btnNext = document.getElementById('next');
-// async function fetchPhotos(fetchurl) {
-//     let token = localStorage.getItem('token');
-//     if (token) {
-//         try {
-//             let response = await fetch(fetchurl, {
-//                 method: 'GET',
-//                 headers: {
-//                     'Authorization': token,
-//                 }
-//             });
-//             let data = await response.json();
-//             return data.objects;
-//         }
-//         catch (err) {
-//             console.log(err);
-//         }
-//     }
-// }
 
 
-async function createGalleryPage(pageNumber) {
+async function createGalleryPage() {
     
-
-    
-    // console.log(response)
     try {
         checkTime();
         updateLocation();
@@ -74,18 +52,7 @@ async function createGalleryPage(pageNumber) {
         alert(err.message);
     }
 }
-// async function displayPhotos(pageNumber) {
-//     try {
-//         let newUrl = 'http://localhost:8080/gallery?page=' + pageNumber;
-//         let fetchedPhotos = await (fetchPhotos(newUrl));
-//         gallery.innerHTML = "";
-//         fetchedPhotos.forEach((item) => gallery.innerHTML += `<img src=${item} height='400'
-//         width='400' style="object-fit: cover">`);
-//     }
-//     catch (err) {
-//         alert(err.message);
-//     }
-// }
+
 async function checkTime() {
     let timeNow = new Date();
     if (timeNow.getUTCMinutes() - Number(localStorage.getItem('time')) >= 10) {
@@ -95,12 +62,17 @@ async function checkTime() {
     }
 }
 function updateLocation() {
-    console.log(location);
-    location.search = `?page=${pageNumber}&limit=${limit}`;
+    if(params.filter){
+        // location.search = `?filter=true`;
+        return
+    } else {
+
+        console.log(location);
+        location.search = `?page=${pageNumber}&limit=${limit}`;
+    }
 }
 btnBack.addEventListener('click', function () {
     pageNumber = previousPage(pageNumber);
-    // alert(pageNumber)
 
     localStorage.setItem('page', pageNumber);
     createGalleryPage(pageNumber);
@@ -110,23 +82,7 @@ btnNext.addEventListener('click', function () {
     localStorage.setItem('page', pageNumber);
     createGalleryPage(pageNumber);
 });
-// function changePageNumber(pageNumber: string, sign: string): string{
-//     if(sign === "-"){
-//         pageNumber = `${+pageNumber - 1}`;
-//         if(+pageNumber < 1){
-//             pageNumber = `${+pageNumber + 5}`;
-//         }
-//         localStorage.setItem('page', pageNumber);
-//     } else if(sign === '+'){
-//         pageNumber = `${+pageNumber + 1}`;
-//         if(+pageNumber > 5){
-//             pageNumber = `${+pageNumber - 5}`;
-//         }
-//         localStorage.setItem('page', pageNumber);
-//     }
-//     console.log(pageNumber)
-//     return pageNumber;
-// }
+
 function nextPage(pageNumber) {
     pageNumber = `${+pageNumber + 1}`;
     console.log(total)
