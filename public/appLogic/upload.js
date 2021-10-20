@@ -40,7 +40,7 @@ exports.uploadImg = void 0;
 var fs = require("fs");
 var path = require("path");
 var ImageSchema_1 = require("../database/models/ImageSchema");
-var checkToken_1 = require("../middlewares/checkToken");
+var getToken_1 = require("./getToken");
 function uploadImg(req, res) {
     return __awaiter(this, void 0, void 0, function () {
         var isPresent, img, stats, user, image;
@@ -60,12 +60,12 @@ function uploadImg(req, res) {
                     fs.renameSync(req.files.photo.path, path.join(__dirname, "../../static/photos/", req.files.photo.name));
                     img = req.files.photo.name;
                     stats = fs.statSync(path.join(__dirname, "../../static/photos/" + img));
-                    user = (0, checkToken_1.extractUserFromToken)(req);
+                    user = (0, getToken_1.extractToken)(req);
                     console.log("USER WHEN UPLOADS: ", user);
                     image = new ImageSchema_1.default({
                         path: img,
                         metadata: stats,
-                        // owner: user.email
+                        owner: user
                     });
                     return [4 /*yield*/, image.save().then(function (result) { return console.log(result); })];
                 case 3:

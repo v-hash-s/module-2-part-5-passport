@@ -2,23 +2,6 @@ import * as jwt from "jsonwebtoken";
 import * as cookieParser from 'cookie-parser'
 
 
-export function extractUserFromToken(req: any) {
-
-    if(process.env.TOKEN_KEY && req.cookies.token) {
-
-        let token =  req.cookies.token.split(' ')[1]
-        let user = jwt.verify(token, process.env.TOKEN_KEY);
-        console.log("USER: ",user)
-        return user;
-
-    }
-    
-    else throw new Error('extractUserFromToken failed');
-    
-
-}
-
-
 function verifyToken(req: any, res: any, next: Function) {
     console.log("Checking cookies")
     if(!req.cookies) {

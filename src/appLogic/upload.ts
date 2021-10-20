@@ -1,7 +1,9 @@
 import * as fs from 'fs'
 import * as path from 'path'
 import ImageModel from '../database/models/ImageSchema'
-import { extractUserFromToken } from '../middlewares/checkToken'
+import { extractToken } from './getToken'
+
+
 export async function uploadImg(req: any, res: any) {
     if (req.files.photo.size != '0') {
         console.log(req.files.photo.name)
@@ -16,12 +18,13 @@ export async function uploadImg(req: any, res: any) {
             fs.renameSync(req.files.photo.path, path.join(__dirname, "../../static/photos/", req.files.photo.name))
             const img = req.files.photo.name
             const stats = fs.statSync(path.join(__dirname, `../../static/photos/${img}`))
-            const user = extractUserFromToken(req); // IMPORT THIS
+            // const user = extractUserFromToken(req); // IMPORT THIS
+            const user = extractToken(req)
             console.log("USER WHEN UPLOADS: ", user)
             const image = new ImageModel({
                 path: img,
                 metadata: stats,
-                // owner: user.email
+                owner: user
             })
             await image.save().then((result: any) => console.log(result))
         }

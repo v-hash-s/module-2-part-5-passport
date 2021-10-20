@@ -1,18 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.extractUserFromToken = void 0;
 var jwt = require("jsonwebtoken");
-function extractUserFromToken(req) {
-    if (process.env.TOKEN_KEY && req.cookies.token) {
-        var token = req.cookies.token.split(' ')[1];
-        var user = jwt.verify(token, process.env.TOKEN_KEY);
-        console.log("USER: ", user);
-        return user;
-    }
-    else
-        throw new Error('extractUserFromToken failed');
-}
-exports.extractUserFromToken = extractUserFromToken;
 function verifyToken(req, res, next) {
     console.log("Checking cookies");
     if (!req.cookies) {
