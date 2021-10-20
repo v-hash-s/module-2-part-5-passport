@@ -49,7 +49,7 @@ function sendGalleryObject(req) {
                     console.log("QUERY: ", req.query);
                     limit = Number(req.query.limit);
                     pageNumber = Number(req.query.page);
-                    dir = path.join(__dirname, '../../static/photos');
+                    dir = path.join(__dirname, "../../static/photos");
                     return [4 /*yield*/, getPhotosArray(dir, pageNumber, limit)];
                 case 1:
                     photos = _b.sent();
@@ -105,7 +105,7 @@ function getPhotosArray(dir, pageNumber, limit) {
                 case 1:
                     arr = _a.sent();
                     photos = [];
-                    for (i = ((pageNumber - 1) * limit); i < limit + ((pageNumber - 1) * limit) && i < arr.length; i++) {
+                    for (i = (pageNumber - 1) * limit; i < limit + (pageNumber - 1) * limit && i < arr.length; i++) {
                         photos.push(arr[i].path);
                     }
                     return [2 /*return*/, photos];

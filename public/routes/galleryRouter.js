@@ -46,19 +46,17 @@ var onlyUsersImages_1 = require("../appLogic/onlyUsersImages");
 var getToken_1 = require("../appLogic/getToken");
 app.set("view engine", "ejs");
 app.use(cookieParser());
-// router.use(require('../middlewares/auth'));
-router.use(require('../middlewares/checkToken'));
-router.options('/', function (req, res) {
-    res.header('Application-Type', 'multipart/form-data');
+router.use(require("../middlewares/checkToken"));
+router.options("/", function (req, res) {
+    res.header("Application-Type", "multipart/form-data");
     res.send();
 });
-router.get('/', function (req, res) {
+router.get("/", function (req, res) {
     return __awaiter(this, void 0, void 0, function () {
         var email, objects, ejsData, pageNumber, limit, objects, ejsData;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    // const filter = false;
                     console.log(req.query.filter);
                     if (!req.query.filter) return [3 /*break*/, 2];
                     email = (0, getToken_1.extractToken)(req);
@@ -66,7 +64,9 @@ router.get('/', function (req, res) {
                 case 1:
                     objects = _a.sent();
                     ejsData = { objects: objects };
-                    res.render((path.join(__dirname, '../../static/pages/gallery.ejs')), { ejsData: ejsData });
+                    res.render(path.join(__dirname, "../../static/pages/gallery.ejs"), {
+                        ejsData: ejsData,
+                    });
                     return [3 /*break*/, 4];
                 case 2:
                     pageNumber = req.query.page;
@@ -79,7 +79,9 @@ router.get('/', function (req, res) {
                 case 3:
                     objects = _a.sent();
                     ejsData = { objects: objects };
-                    res.render((path.join(__dirname, '../../static/pages/gallery.ejs')), { ejsData: ejsData });
+                    res.render(path.join(__dirname, "../../static/pages/gallery.ejs"), {
+                        ejsData: ejsData,
+                    });
                     _a.label = 4;
                 case 4: return [2 /*return*/];
             }

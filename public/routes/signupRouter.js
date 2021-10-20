@@ -42,25 +42,25 @@ var path = require("path");
 var router = express.Router();
 var isUserExist_1 = require("../appLogic/isUserExist");
 var createUserInDB_1 = require("../appLogic/createUserInDB");
-router.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname, '../../static/pages/signup.html'));
+router.get("/", function (req, res) {
+    res.sendFile(path.join(__dirname, "../../static/pages/signup.html"));
 });
-router.post('/', function (req, res) {
+router.post("/", function (req, res) {
     return __awaiter(this, void 0, void 0, function () {
         var isExist;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, ((0, isUserExist_1.isUserExist)(req))];
+                case 0: return [4 /*yield*/, (0, isUserExist_1.isUserExist)(req)];
                 case 1:
                     isExist = _a.sent();
                     if (!isExist) return [3 /*break*/, 2];
                     res.status(200);
-                    res.send(JSON.stringify('User already exists'));
+                    res.send(JSON.stringify("User already exists"));
                     return [3 /*break*/, 4];
-                case 2: return [4 /*yield*/, (0, createUserInDB_1.createUser)(req).then(function () { return console.log('User is created'); })];
+                case 2: return [4 /*yield*/, (0, createUserInDB_1.createUser)(req).then(function () { return console.log("User is created"); })];
                 case 3:
                     _a.sent();
-                    res.send(JSON.stringify('User is created'));
+                    res.send(JSON.stringify("User is created"));
                     _a.label = 4;
                 case 4: return [2 /*return*/];
             }

@@ -45,7 +45,8 @@ function isUserExist(req) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, UserSchema_1.default.findOne({ email: req.body.email }, { email: 1, password: 1 }).then(function (data) {
                         if (data) {
-                            if (data.email === req.body.email && data.password === req.body.password) {
+                            if (data.email === req.body.email &&
+                                data.password === req.body.password) {
                                 return true;
                             }
                             else if (data.email === req.body.email) {

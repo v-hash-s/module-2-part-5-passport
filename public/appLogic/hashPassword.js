@@ -65,7 +65,7 @@ function getSalt(saltRounds) {
                 case 0: return [4 /*yield*/, bcrypt.genSalt(saltRounds)];
                 case 1:
                     salt = _a.sent();
-                    console.log('Salt: ', salt);
+                    console.log("Salt: ", salt);
                     return [2 /*return*/, salt];
             }
         });

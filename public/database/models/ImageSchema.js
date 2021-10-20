@@ -7,5 +7,5 @@ var imageSchema = new Schema({
     metadata: Object,
     owner: String,
 });
-var ImageModel = mongoose.model('images', imageSchema);
+var ImageModel = mongoose.model("images", imageSchema);
 exports.default = ImageModel;

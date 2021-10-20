@@ -47,12 +47,12 @@ function uploadImg(req, res) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    if (!(req.files.photo.size != '0')) return [3 /*break*/, 5];
+                    if (!(req.files.photo.size != "0")) return [3 /*break*/, 5];
                     console.log(req.files.photo.name);
                     return [4 /*yield*/, isExist(req.files.photo.name)];
                 case 1:
                     isPresent = _a.sent();
-                    console.log('IS REAL: ', isPresent);
+                    console.log("IS REAL: ", isPresent);
                     if (!isPresent) return [3 /*break*/, 2];
                     return [2 /*return*/];
                 case 2:
@@ -65,7 +65,7 @@ function uploadImg(req, res) {
                     image = new ImageSchema_1.default({
                         path: img,
                         metadata: stats,
-                        owner: user
+                        owner: user,
                     });
                     return [4 /*yield*/, image.save().then(function (result) { return console.log(result); })];
                 case 3:

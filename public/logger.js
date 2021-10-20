@@ -2,14 +2,14 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var log = require("simple-node-logger");
 var logInfo = log.createRollingFileLogger({
-    errorEventName: 'error',
-    logDirectory: '../logs',
-    fileNamePattern: 'logFile-<DATE>.log',
-    dateFormat: 'DD-MM-YYYY HH',
-    timestampFormat: 'DD-MM-YYYY HH:mm:ss.SSS'
+    errorEventName: "error",
+    logDirectory: "../logs",
+    fileNamePattern: "logFile-<DATE>.log",
+    dateFormat: "DD-MM-YYYY HH",
+    timestampFormat: "DD-MM-YYYY HH:mm:ss.SSS",
 });
 function loggerFunction(reqOrMsg, res, next) {
-    if (typeof reqOrMsg === 'string') {
+    if (typeof reqOrMsg === "string") {
         logInfo.info("\u041E\u0442\u0432\u0435\u0442 \u0441\u0435\u0440\u0432\u0435\u0440\u0430: " + reqOrMsg);
     }
     else {

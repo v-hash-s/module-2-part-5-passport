@@ -39,13 +39,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var upload_1 = require("../appLogic/upload");
 var express = require("express");
 var router = express.Router();
-// router.use(require('../middlewares/auth'));
-router.use(require('../middlewares/checkToken'));
-router.options('/', function (req, res) {
-    res.header('Application-Type', 'multipart/form-data');
+router.use(require("../middlewares/checkToken"));
+router.options("/", function (req, res) {
+    res.header("Application-Type", "multipart/form-data");
     res.send();
 });
-router.post('/', function (req, res) {
+router.post("/", function (req, res) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -53,7 +52,11 @@ router.post('/', function (req, res) {
                 case 1:
                     _a.sent();
                     res.status(302);
-                    res.redirect('/gallery' + '?page=' + req.fields.pageNumInForm + "&limit=" + req.fields.limitNumInForm);
+                    res.redirect("/gallery" +
+                        "?page=" +
+                        req.fields.pageNumInForm +
+                        "&limit=" +
+                        req.fields.limitNumInForm);
                     return [2 /*return*/];
             }
         });
