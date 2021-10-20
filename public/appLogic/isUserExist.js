@@ -48,6 +48,9 @@ function isUserExist(req) {
                             if (data.email === req.body.email && data.password === req.body.password) {
                                 return true;
                             }
+                            else if (data.email === req.body.email) {
+                                return true;
+                            }
                             else {
                                 return false;
                             }
