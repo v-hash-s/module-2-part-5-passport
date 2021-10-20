@@ -1,4 +1,4 @@
-# module-2-part-4-mongodb-gallery
+# module-2-part-5-passport
 
 ## Vlasta Stelmakh
 
@@ -24,8 +24,10 @@ User attempts to log in, if his data is correct, the server sends him object, co
 * Express-formidable
 * Simple-node-logger
 * Mongoose
+* Passport.js
+* jsonwebtoken
 
-——
+——–
 
 ### Project structure:
 
@@ -34,20 +36,28 @@ User attempts to log in, if his data is correct, the server sends him object, co
 * /public
 * /src
   * /appLogic
+    * createUserInDB.ts
+    * getToken.ts
+    * onlyUserImages.ts
+    * sendToken.ts
+    * isUserExist.ts
     * gallery.ts
     * upload.ts
     * login.ts
+    * hashPassword.ts
   * /middlewares
-    * auth.ts
+    * checkToken.ts
   * /routes
     * galleryRouter.ts
     * loginRouter.ts
     * uploadRouter.ts
+    * signupRouter.ts
   * /script
     * script.ts
   * /database
     * models
       * ImageSchema.ts
+      * UserSchema.ts
   * interfaces.ts
   * logger.ts
   * server.ts
@@ -59,12 +69,14 @@ User attempts to log in, if his data is correct, the server sends him object, co
     * index.html
     * login.js
     * not_found.html
+    * signup.html
+    * signup.js
   * /photos
   * /uploads
 * express_gallery.postman_collection.json
 * gallery_express-1.0.0-swagger.yaml
 
-——
+——–
 
 ### Project structure description:
 
@@ -112,11 +124,31 @@ User attempts to log in, if his data is correct, the server sends him object, co
 
 #### **/src/middlewares**
 
-#### auth.ts
+#### checkToken.ts
 
-> Function that checks cookies if user has the token to use gallery
+> Function that checks jwt token from cookies
 
 #### **/src/appLogic**
+
+#### isUserExist.ts
+
+> Function that checks if the user is present in db (when the user attempts to log in or sign up)
+
+#### createUserInDB.ts
+
+> Function that creates new user in mongo db
+
+#### hashPassword.ts
+
+> Function that hashes password when user signs in
+
+#### getToken.ts
+
+> Function that retrieves email from jwt token
+
+#### onlyUsersImages.ts
+
+> Function that sends galleryResponse with images that only the user has uploaded
 
 #### gallery.ts
 
@@ -140,9 +172,13 @@ User attempts to log in, if his data is correct, the server sends him object, co
 
 > Router for **get** and **post** requests to */* to authorize
 
+#### signUpRouter.ts
+
+> Router for **get** and **post** requests to */* to sign up
+
 #### **/src/database/models**
 
-> Image schema to upload image to mongodb collection
+> Image schema and User schema to upload image to mongodb collection
 
 #### **/static**
 
@@ -158,7 +194,7 @@ User attempts to log in, if his data is correct, the server sends him object, co
 
 > temporary placeholder for uploaded images
 
-——
+——–
 
 ### How to start the project: 
 
@@ -168,3 +204,14 @@ User attempts to log in, if his data is correct, the server sends him object, co
 4. From the root of the project run command "npm run start" to run the server
 5. Open your browser and enter in the search bar "localhost:8080"
 6. Enjoy the photos of architecture and upload anything you want
+
+–––
+
+### API
+
+Renders html page with login form
+
+```
+GET '/'
+
+```
