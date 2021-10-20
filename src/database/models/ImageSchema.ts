@@ -1,12 +1,12 @@
-import * as mongoose from 'mongoose'
-const Schema = mongoose.Schema
+import * as mongoose from "mongoose";
+const Schema = mongoose.Schema;
 
 const imageSchema = new Schema({
-    path: String,
-    metadata: Object,
-    owner: String,
-})
+  path: String,
+  metadata: Object,
+  owner: String,
+});
 
-const ImageModel = mongoose.model('images', imageSchema)
+const ImageModel = mongoose.model("images", imageSchema);
 
-export default ImageModel
+export default ImageModel;
