@@ -12,7 +12,7 @@ User attempts to log in, if his data is correct, the server sends him object, co
 * current page number
 * array with photos links
 
-–––
+---
 
 ### Tools used for the project
 
@@ -27,7 +27,7 @@ User attempts to log in, if his data is correct, the server sends him object, co
 * Passport.js
 * jsonwebtoken
 
-–––
+---
 
 ### Project structure:
 
@@ -76,7 +76,7 @@ User attempts to log in, if his data is correct, the server sends him object, co
 * express_gallery.postman_collection.json
 * gallery_express-1.0.0-swagger.yaml
 
-–––
+---
 
 ### Project structure description:
 
@@ -194,7 +194,7 @@ User attempts to log in, if his data is correct, the server sends him object, co
 
 > temporary placeholder for uploaded images
 
-–––
+---
 
 ### How to start the project: 
 
@@ -205,7 +205,7 @@ User attempts to log in, if his data is correct, the server sends him object, co
 5. Open your browser and enter in the search bar "localhost:8080"
 6. Enjoy the photos of architecture and upload anything you want
 
-–––
+---
 
 ### API
 
