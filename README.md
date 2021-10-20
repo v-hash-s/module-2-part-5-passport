@@ -12,7 +12,7 @@ User attempts to log in, if his data is correct, the server sends him object, co
 * current page number
 * array with photos links
 
-——
+–––
 
 ### Tools used for the project
 
@@ -27,7 +27,7 @@ User attempts to log in, if his data is correct, the server sends him object, co
 * Passport.js
 * jsonwebtoken
 
-——–
+–––
 
 ### Project structure:
 
@@ -76,7 +76,7 @@ User attempts to log in, if his data is correct, the server sends him object, co
 * express_gallery.postman_collection.json
 * gallery_express-1.0.0-swagger.yaml
 
-——–
+–––
 
 ### Project structure description:
 
@@ -194,7 +194,7 @@ User attempts to log in, if his data is correct, the server sends him object, co
 
 > temporary placeholder for uploaded images
 
-——–
+–––
 
 ### How to start the project: 
 
@@ -236,19 +236,16 @@ Returns a specified gallery page with a specified or default limit of images per
 
 ```
 GET '/gallery?page=[number]&limit=[number]': 
-
 ```
 
 Returns all images the specific user has uploaded
 
 ```
 GET '/gallery?filter=true': 
-
 ```
 
 Upload image to mongoDB
 
 ```
 POST '/upload': 
-
 ```
