@@ -52,7 +52,7 @@ function sendUsersImages(email) {
                     });
                     console.log(images);
                     galleryResponse = {
-                        objects: images
+                        objects: images,
                     };
                     return [2 /*return*/, galleryResponse];
             }

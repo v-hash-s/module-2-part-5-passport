@@ -1,6 +1,6 @@
 import * as mongoose from "mongoose";
-import * as dotenv from "dotenv";
-dotenv.config({ path: "../../.env" });
+// import * as dotenv from "dotenv";
+// dotenv.config({ path: "../../.env" });
 
 async function db() {
   console.log("Connecting database . . .");

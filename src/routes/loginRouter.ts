@@ -1,47 +1,14 @@
 import { Request, Response } from "express";
 import * as express from "express";
-const app = express();
 import * as path from "path";
-import * as cookieParser from "cookie-parser";
 
-import { Token, ErrorMessage } from "../interfaces";
 const router = express.Router();
-import { isValidUser } from "../appLogic/login";
 import UserModel from "../database/models/UserSchema";
 
 import sendToken from "../appLogic/sendToken";
 
-import * as bcrypt from "bcrypt";
-
-const passport = require("passport");
-const LocalStrategy = require("passport-local").Strategy;
-
-const customFields = {
-  usernameField: "email",
-  passwordField: "password",
-};
-
-const verifyCallback = (email: string, password: string, done: any) => {
-  UserModel.findOne({ email: email })
-    .then((user: any) => {
-      if (!user) {
-        return done(null, false);
-      }
-
-      const isValidPassword = bcrypt.compareSync(password, user.password);
-
-      if (isValidPassword) {
-        return done(null, user);
-      } else {
-        return done(null, false);
-      }
-    })
-    .catch((err: any) => {
-      done(err);
-    });
-};
-
-const strategy = new LocalStrategy(customFields, verifyCallback);
+import * as passport from "passport";
+import strategy from "../passport/passportUtils";
 
 passport.use(strategy);
 

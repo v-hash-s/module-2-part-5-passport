@@ -40,7 +40,7 @@ exports.sendToken = exports.isValidUser = exports.token = void 0;
 var UserSchema_1 = require("../database/models/UserSchema");
 var bcrypt = require("bcrypt");
 exports.token = {
-    'token': 'token',
+    token: "token",
 };
 function isValidUser(req) {
     return __awaiter(this, void 0, void 0, function () {

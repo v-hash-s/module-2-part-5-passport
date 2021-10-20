@@ -37,18 +37,18 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var mongoose = require("mongoose");
-var dotenv = require("dotenv");
-dotenv.config({ path: '../../.env' });
+// import * as dotenv from "dotenv";
+// dotenv.config({ path: "../../.env" });
 function db() {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    console.log('Connecting database . . .');
+                    console.log("Connecting database . . .");
                     if (!process.env.MONGODB_URI) return [3 /*break*/, 2];
                     return [4 /*yield*/, mongoose.connect(process.env.MONGODB_URI)];
                 case 1: return [2 /*return*/, _a.sent()];
-                case 2: throw new Error('mongodb URI is not defined');
+                case 2: throw new Error("mongodb URI is not defined");
             }
         });
     });
