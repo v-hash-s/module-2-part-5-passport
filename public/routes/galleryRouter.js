@@ -46,7 +46,6 @@ var onlyUsersImages_1 = require("../appLogic/onlyUsersImages");
 var getToken_1 = require("../appLogic/getToken");
 app.set("view engine", "ejs");
 app.use(cookieParser());
-// router.use(require("../middlewares/checkToken"));
 var passport = require("passport");
 var passportJwt_1 = require("../passport/passportJwt");
 passport.use(passportJwt_1.default);
@@ -54,13 +53,14 @@ router.options("/", function (req, res) {
     res.header("Application-Type", "multipart/form-data");
     res.send();
 });
+var errorHandler_1 = require("../middlewares/errorHandler");
 router.get("/", function (req, res, next) {
     return __awaiter(this, void 0, void 0, function () {
-        var email, objects, ejsData, pageNumber, limit, objects, ejsData;
+        var email, objects, ejsData, pageNumber, limit, objects, ejsData, err_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    // JWT PASSPORT
+                    _a.trys.push([0, 5, , 6]);
                     console.log("PASSPORT: ");
                     passport.authenticate("jwt", {
                         session: false,
@@ -99,9 +99,15 @@ router.get("/", function (req, res, next) {
                         ejsData: ejsData,
                     });
                     _a.label = 4;
-                case 4: return [2 /*return*/];
+                case 4: return [3 /*break*/, 6];
+                case 5:
+                    err_1 = _a.sent();
+                    (0, errorHandler_1.default)(err_1, req, res, next);
+                    return [3 /*break*/, 6];
+                case 6: return [2 /*return*/];
             }
         });
     });
 });
+app.use(errorHandler_1.default);
 exports.default = router;

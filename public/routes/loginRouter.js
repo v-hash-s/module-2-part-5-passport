@@ -39,6 +39,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express = require("express");
 var path = require("path");
 var router = express.Router();
+var errorHandler_1 = require("../middlewares/errorHandler");
 var UserSchema_1 = require("../database/models/UserSchema");
 var sendToken_1 = require("../appLogic/sendToken");
 var passport = require("passport");
@@ -58,41 +59,51 @@ router.options("/", function (req, res) {
     res.header("Application-Type", "multipart/form-data");
     res.send();
 });
-router.get("/", function (req, res) {
-    res.sendFile(path.join(__dirname, "../../static/pages/index.html"));
+router.get("/", function (req, res, next) {
+    try {
+        res.sendFile(path.join(__dirname, "../../static/pages/index.html"));
+    }
+    catch (err) {
+        (0, errorHandler_1.default)(err, req, res, next);
+    }
 });
 router.post("/", function (req, res, next) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            passport.authenticate("local", function (err, user, info) {
-                console.log(user);
-                if (err) {
-                    return next(err);
-                }
-                if (!user) {
-                    return res.redirect("/");
-                }
-                req.logIn(user, function (err) {
-                    return __awaiter(this, void 0, void 0, function () {
-                        var userEmail, accessToken;
-                        return __generator(this, function (_a) {
-                            switch (_a.label) {
-                                case 0:
-                                    if (err) {
-                                        return [2 /*return*/, next(err)];
-                                    }
-                                    userEmail = req.body.email;
-                                    return [4 /*yield*/, (0, sendToken_1.default)(userEmail)];
-                                case 1:
-                                    accessToken = _a.sent();
-                                    console.log("IN POST: ", accessToken);
-                                    res.cookie("token", accessToken);
-                                    return [2 /*return*/, res.redirect("/gallery")];
-                            }
+            try {
+                passport.authenticate("local", function (err, user, info) {
+                    console.log(user);
+                    if (err) {
+                        return next(err);
+                    }
+                    if (!user) {
+                        return res.redirect("/");
+                    }
+                    req.logIn(user, function (err) {
+                        return __awaiter(this, void 0, void 0, function () {
+                            var userEmail, accessToken;
+                            return __generator(this, function (_a) {
+                                switch (_a.label) {
+                                    case 0:
+                                        if (err) {
+                                            return [2 /*return*/, next(err)];
+                                        }
+                                        userEmail = req.body.email;
+                                        return [4 /*yield*/, (0, sendToken_1.default)(userEmail)];
+                                    case 1:
+                                        accessToken = _a.sent();
+                                        console.log("IN POST: ", accessToken);
+                                        res.cookie("token", accessToken);
+                                        return [2 /*return*/, res.redirect("/gallery")];
+                                }
+                            });
                         });
                     });
-                });
-            })(req, res, next);
+                })(req, res, next);
+            }
+            catch (err) {
+                (0, errorHandler_1.default)(err, req, res, next);
+            }
             return [2 /*return*/];
         });
     });

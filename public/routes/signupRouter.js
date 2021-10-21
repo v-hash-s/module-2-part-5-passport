@@ -42,15 +42,23 @@ var path = require("path");
 var router = express.Router();
 var isUserExist_1 = require("../appLogic/isUserExist");
 var createUserInDB_1 = require("../appLogic/createUserInDB");
-router.get("/", function (req, res) {
-    res.sendFile(path.join(__dirname, "../../static/pages/signup.html"));
+var errorHandler_1 = require("../middlewares/errorHandler");
+router.get("/", function (req, res, next) {
+    try {
+        res.sendFile(path.join(__dirname, "../../static/pages/signup.html"));
+    }
+    catch (err) {
+        (0, errorHandler_1.default)(err, req, res, next);
+    }
 });
-router.post("/", function (req, res) {
+router.post("/", function (req, res, next) {
     return __awaiter(this, void 0, void 0, function () {
-        var isExist;
+        var isExist, err_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, (0, isUserExist_1.isUserExist)(req)];
+                case 0:
+                    _a.trys.push([0, 5, , 6]);
+                    return [4 /*yield*/, (0, isUserExist_1.isUserExist)(req)];
                 case 1:
                     isExist = _a.sent();
                     if (!isExist) return [3 /*break*/, 2];
@@ -62,7 +70,12 @@ router.post("/", function (req, res) {
                     _a.sent();
                     res.send(JSON.stringify("User is created"));
                     _a.label = 4;
-                case 4: return [2 /*return*/];
+                case 4: return [3 /*break*/, 6];
+                case 5:
+                    err_1 = _a.sent();
+                    (0, errorHandler_1.default)(err_1, req, res, next);
+                    return [3 /*break*/, 6];
+                case 6: return [2 /*return*/];
             }
         });
     });

@@ -4,65 +4,66 @@
 
 ### About this project:
 
-#### This project was developed for educational purpose. 
+#### This project was developed for educational purpose.
+
 It consists of client and server sides. Server side, which is the main focus of the project, was written with Node.js, Express and Typescript. EJS was used for client side
 User attempts to log in, if his data is correct, the server sends him object, containing object with:
 
-* total number of pages
-* current page number
-* array with photos links
+-   total number of pages
+-   current page number
+-   array with photos links
 
 ——
 
 ### Tools used for the project
 
-* Node.js
-* Express
-* Typescript
-* EJS
-* Cookie parser
-* Express-formidable
-* Simple-node-logger
-* Mongoose
+-   Node.js
+-   Express
+-   Typescript
+-   EJS
+-   Cookie parser
+-   Express-formidable
+-   Simple-node-logger
+-   Mongoose
+-   pm2
 
 ——
 
 ### Project structure:
 
-* /logs
-  * logger.log
-* /public
-* /src
-  * /appLogic
-    * gallery.ts
-    * upload.ts
-    * login.ts
-  * /middlewares
-    * auth.ts
-  * /routes
-    * galleryRouter.ts
-    * loginRouter.ts
-    * uploadRouter.ts
-  * /script
-    * script.ts
-  * /database
-    * models
-      * ImageSchema.ts
-  * interfaces.ts
-  * logger.ts
-  * server.ts
-  
-* /static
-  * /pages
-    * gallery.ejs
-    * gallery.js
-    * index.html
-    * login.js
-    * not_found.html
-  * /photos
-  * /uploads
-* express_gallery.postman_collection.json
-* gallery_express-1.0.0-swagger.yaml
+-   /logs
+    -   logger.log
+-   /public
+-   /src
+    -   /appLogic
+        -   gallery.ts
+        -   upload.ts
+        -   login.ts
+    -   /middlewares
+        -   auth.ts
+    -   /routes
+        -   galleryRouter.ts
+        -   loginRouter.ts
+        -   uploadRouter.ts
+    -   /script
+        -   script.ts
+    -   /database
+        -   models
+            -   ImageSchema.ts
+    -   interfaces.ts
+    -   logger.ts
+    -   server.ts
+-   /static
+    -   /pages
+        -   gallery.ejs
+        -   gallery.js
+        -   index.html
+        -   login.js
+        -   not_found.html
+    -   /photos
+    -   /uploads
+-   express_gallery.postman_collection.json
+-   gallery_express-1.0.0-swagger.yaml
 
 ——
 
@@ -134,11 +135,11 @@ User attempts to log in, if his data is correct, the server sends him object, co
 
 #### galleryRouter.ts
 
-> Router for **get** requests to */gallery* to get images
+> Router for **get** requests to _/gallery_ to get images
 
 #### loginRouter.ts
 
-> Router for **get** and **post** requests to */* to authorize
+> Router for **get** and **post** requests to _/_ to authorize
 
 #### **/src/database/models**
 
@@ -160,7 +161,7 @@ User attempts to log in, if his data is correct, the server sends him object, co
 
 ——
 
-### How to start the project: 
+### How to start the project:
 
 1. Clone the repository to your machine
 2. Open it in you code editor

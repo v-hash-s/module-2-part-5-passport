@@ -3,6 +3,8 @@ import * as express from "express";
 import * as path from "path";
 
 const router = express.Router();
+import errorHandler from "../middlewares/errorHandler";
+
 import UserModel from "../database/models/UserSchema";
 
 import sendToken from "../appLogic/sendToken";
@@ -29,30 +31,41 @@ router.options("/", (req: Request, res: Response) => {
     res.send();
 });
 
-router.get("/", function (req: Request, res: Response) {
-    res.sendFile(path.join(__dirname, "../../static/pages/index.html"));
+router.get("/", function (req: Request, res: Response, next: any) {
+    try {
+        res.sendFile(path.join(__dirname, "../../static/pages/index.html"));
+    } catch (err: any) {
+        errorHandler(err, req, res, next);
+    }
 });
 
 router.post("/", async function (req, res, next) {
-    passport.authenticate("local", function (err: any, user: any, info: any) {
-        console.log(user);
-        if (err) {
-            return next(err);
-        }
-        if (!user) {
-            return res.redirect("/");
-        }
-        req.logIn(user, async function (err: any) {
-            if (err) {
-                return next(err);
+    try {
+        passport.authenticate(
+            "local",
+            function (err: any, user: any, info: any) {
+                console.log(user);
+                if (err) {
+                    return next(err);
+                }
+                if (!user) {
+                    return res.redirect("/");
+                }
+                req.logIn(user, async function (err: any) {
+                    if (err) {
+                        return next(err);
+                    }
+                    const userEmail = req.body.email;
+                    const accessToken = await sendToken(userEmail);
+                    console.log("IN POST: ", accessToken);
+                    res.cookie("token", accessToken);
+                    return res.redirect("/gallery");
+                });
             }
-            const userEmail = req.body.email;
-            const accessToken = await sendToken(userEmail);
-            console.log("IN POST: ", accessToken);
-            res.cookie("token", accessToken);
-            return res.redirect("/gallery");
-        });
-    })(req, res, next);
+        )(req, res, next);
+    } catch (err: any) {
+        errorHandler(err, req, res, next);
+    }
 });
 
 export default router;

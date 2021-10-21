@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var dotenv = require("dotenv");
 dotenv.config({ path: "../.env" });
+var errorHandler_1 = require("./middlewares/errorHandler");
 var path = require("path");
 var express = require("express");
 var app = express();
@@ -10,6 +11,7 @@ var formidableMiddleware = require("express-formidable");
 var cors = require("cors");
 var cookieParser = require("cookie-parser");
 var passport = require("passport");
+app.use(errorHandler_1.default);
 app.use(passport.initialize());
 (0, connectToMongoDB_1.default)()
     .then(function () { return console.log("Database connection established"); })

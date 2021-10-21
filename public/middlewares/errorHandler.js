@@ -36,52 +36,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var upload_1 = require("../appLogic/upload");
-var express = require("express");
-var router = express.Router();
-var errorHandler_1 = require("../middlewares/errorHandler");
-var passport = require("passport");
-var passportJwt_1 = require("../passport/passportJwt");
-passport.use(passportJwt_1.default);
-router.options("/", function (req, res) {
-    res.header("Application-Type", "multipart/form-data");
-    res.send();
-});
-router.post("/", function (req, res, next) {
+function errorHandler(err, req, res, next) {
     return __awaiter(this, void 0, void 0, function () {
-        var err_1;
         return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    _a.trys.push([0, 2, , 3]);
-                    passport.authenticate("jwt", {
-                        session: false,
-                        failureRedirect: "/",
-                    }, function (err, user) {
-                        if (err) {
-                            return next(err);
-                        }
-                        if (!user) {
-                            res.redirect("/");
-                        }
-                    })(req, res, next);
-                    return [4 /*yield*/, (0, upload_1.uploadImg)(req, res)];
-                case 1:
-                    _a.sent();
-                    res.status(302);
-                    res.redirect("/gallery" +
-                        "?page=" +
-                        req.fields.pageNumInForm +
-                        "&limit=" +
-                        req.fields.limitNumInForm);
-                    return [3 /*break*/, 3];
-                case 2:
-                    err_1 = _a.sent();
-                    (0, errorHandler_1.default)(err_1, req, res, next);
-                    return [3 /*break*/, 3];
-                case 3: return [2 /*return*/];
+            if (res.headersSent) {
+                return [2 /*return*/, next(err)];
             }
+            res.status(500);
+            res.send("Server Error");
+            return [2 /*return*/];
         });
     });
-});
-exports.default = router;
+}
+exports.default = errorHandler;
