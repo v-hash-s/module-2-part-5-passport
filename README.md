@@ -1,4 +1,4 @@
-# module-2-part-4-mongodb-gallery
+# module-2-part-5-passport
 
 ## Vlasta Stelmakh
 
@@ -24,6 +24,8 @@ User attempts to log in, if his data is correct, the server sends him object, co
 * Express-formidable
 * Simple-node-logger
 * Mongoose
+* Passport.js
+* JWT
 
 ——
 
