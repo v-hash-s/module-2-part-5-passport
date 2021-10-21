@@ -13,7 +13,7 @@ User attempts to log in, if his data is correct, the server sends him object, co
 -   current page number
 -   array with photos links
 
-——
+---
 
 ### Tools used for the project
 
@@ -35,7 +35,7 @@ This version of Passport project requires pm2 to be installed
 ```
 npm install pm2 -g
 ```
-——
+---
 
 ### Project structure:
 
@@ -73,7 +73,7 @@ npm install pm2 -g
 -   express_gallery.postman_collection.json
 -   gallery_express-1.0.0-swagger.yaml
 
-——
+---
 
 ### Project structure description:
 
@@ -167,13 +167,13 @@ npm install pm2 -g
 
 > temporary placeholder for uploaded images
 
-——
+---
 
 ### How to start the project:
 
 1. Clone the repository to your machine
 2. Open it in you code editor
 3. In terminal run command "npm install" to install all essential npm modules
-4. From the root of the project run command "npm run start" to run the server
+4. From the root of the project run command "npm run start" (it uses pm2 to start the project) to run the server
 5. Open your browser and enter in the search bar "localhost:8080"
 6. Enjoy the photos of architecture and upload anything you want
