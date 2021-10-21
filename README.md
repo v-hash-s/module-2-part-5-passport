@@ -1,4 +1,4 @@
-# module-2-part-4-mongodb-gallery
+# module-2-part-5-passport
 
 ## Vlasta Stelmakh
 
@@ -27,6 +27,14 @@ User attempts to log in, if his data is correct, the server sends him object, co
 -   Mongoose
 -   pm2
 
+---
+### Prerequisites:
+
+This version of Passport project requires pm2 to be installed
+
+```
+npm install pm2 -g
+```
 ——
 
 ### Project structure:
