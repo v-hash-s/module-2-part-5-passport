@@ -36,45 +36,35 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var upload_1 = require("../appLogic/upload");
-var express = require("express");
-var router = express.Router();
-// router.use(require("../middlewares/checkToken"));
-var passport = require("passport");
-var passportJwt_1 = require("../passport/passportJwt");
-passport.use(passportJwt_1.default);
-router.options("/", function (req, res) {
-    res.header("Application-Type", "multipart/form-data");
-    res.send();
-});
-router.post("/", function (req, res, next) {
-    return __awaiter(this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    passport.authenticate("jwt", {
-                        session: false,
-                        failureRedirect: "/",
-                    }, function (err, user) {
-                        if (err) {
-                            return next(err);
-                        }
-                        if (!user) {
-                            res.redirect("/");
-                        }
-                    })(req, res, next);
-                    return [4 /*yield*/, (0, upload_1.uploadImg)(req, res)];
-                case 1:
-                    _a.sent();
-                    res.status(302);
-                    res.redirect("/gallery" +
-                        "?page=" +
-                        req.fields.pageNumInForm +
-                        "&limit=" +
-                        req.fields.limitNumInForm);
-                    return [2 /*return*/];
-            }
-        });
+var UserSchema_1 = require("../database/models/UserSchema");
+var JwtStrategy = require("passport-jwt").Strategy;
+var options = {
+    secretOrKey: process.env.TOKEN_KEY,
+    jwtFromRequest: function (req) {
+        if (req && req.cookies) {
+            return req.cookies.token;
+        }
+        return null;
+    },
+};
+var verifyJWTCallback = function (jwt_payload, done) { return __awaiter(void 0, void 0, void 0, function () {
+    var isPresent;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, UserSchema_1.default.find({ email: jwt_payload.email }).then(function (user) {
+                    console.log(user);
+                    if (!user) {
+                        return done(null, false);
+                    }
+                    else {
+                        return done(null, user);
+                    }
+                })];
+            case 1:
+                isPresent = _a.sent();
+                return [2 /*return*/, isPresent];
+        }
     });
-});
-exports.default = router;
+}); };
+var strategyJWT = new JwtStrategy(options, verifyJWTCallback);
+exports.default = strategyJWT;

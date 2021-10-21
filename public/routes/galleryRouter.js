@@ -46,17 +46,33 @@ var onlyUsersImages_1 = require("../appLogic/onlyUsersImages");
 var getToken_1 = require("../appLogic/getToken");
 app.set("view engine", "ejs");
 app.use(cookieParser());
-router.use(require("../middlewares/checkToken"));
+// router.use(require("../middlewares/checkToken"));
+var passport = require("passport");
+var passportJwt_1 = require("../passport/passportJwt");
+passport.use(passportJwt_1.default);
 router.options("/", function (req, res) {
     res.header("Application-Type", "multipart/form-data");
     res.send();
 });
-router.get("/", function (req, res) {
+router.get("/", function (req, res, next) {
     return __awaiter(this, void 0, void 0, function () {
         var email, objects, ejsData, pageNumber, limit, objects, ejsData;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    // JWT PASSPORT
+                    console.log("PASSPORT: ");
+                    passport.authenticate("jwt", {
+                        session: false,
+                        failureRedirect: "/",
+                    }, function (err, user) {
+                        if (err) {
+                            return next(err);
+                        }
+                        if (!user) {
+                            res.redirect("/");
+                        }
+                    })(req, res, next);
                     console.log(req.query.filter);
                     if (!req.query.filter) return [3 /*break*/, 2];
                     email = (0, getToken_1.extractToken)(req);
